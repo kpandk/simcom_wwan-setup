@@ -164,40 +164,11 @@ OK
 1. Send a request for product identification info: `# echo -e 'ATI\r' > /dev/ttyUSB2`
 1. Now check the first terminal window for the output.
 
-## 4G connection
-
-### Download
-
-1. `$ cd`
-1. `$ mkdir Simcom_wwan`
-1. `$ cd Simcom_wwan`
-1. `$ wget https://www.waveshare.com/w/upload/4/46/Simcom_wwan.zip`
-1. `$ unzip Simcom_wwan.zip`
-
 ## Compile, and Install Driver
 
 Got help figuring this one out from [here](https://stackoverflow.com/questions/3140478/fatal-module-not-found-error-using-modprobe).
 
-1. Modify the Makefile (basically rewrite it): `$ nano Makefile`
-
-```
-obj-m:=simcom_wwan.o
-simcom_wwanmodule-objs:=module
-MAKE:=make
-PWD=$(shell pwd)
-VER=$(shell uname -r)
-KERNEL_BUILD=/lib/modules/$(VER)/build
-INSTALL_ROOT=/
-
-default:
-	$(MAKE) -C $(KERNEL_BUILD) M=$(PWD) modules
-clean:
-	$(MAKE) -C $(KERNEL_BUILD) M=$(PWD) clean
-install:
-	$(MAKE) -C $(KERNEL_BUILD) M=$(PWD) INSTALL_MOD_PATH=$(INSTALL_ROOT) modules_install
-```
-
-1. Press `ctrl+x` then `y` then `enter` to save and exit.
+1. cd driver/
 1. `$ sudo make clean`
 1. `$ sudo make`
 1. `$ sudo install`
